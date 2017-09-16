@@ -1,0 +1,23 @@
+{
+  "dynamic": {
+    "group": [
+      {
+        "name": "firebase",
+        "urls": {
+          "https://ng-gomoku.firebaseapp.com/": {
+            "match": "prefix"
+          },
+          "https://gomoku.ngpwa.com/": {
+            "match": "prefix"
+          }
+        },
+        "cache": {
+          "optimizeFor": "freshness",
+          "maxAgeMs": 3600000,
+          "maxEntries": 20,
+          "strategy": "lru"
+        }
+      }
+    ]
+  }
+}
