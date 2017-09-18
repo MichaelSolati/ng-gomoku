@@ -16,7 +16,7 @@ export class UserService {
     this._fbAuth.auth.signInWithRedirect(provider).then(() => {
       this._fbAuth.auth.getRedirectResult().then((result: any) => {
         if (callback) { callback(null, result); }
-      }).catch((error: any) => {
+      }).catch((error: Error) => {
         if (callback) { callback(error, null); }
       });
     });
@@ -24,21 +24,21 @@ export class UserService {
 
   public signInFacebook(callback?: any): void {
     const provider = new firebase.auth.FacebookAuthProvider();
-    this._signIn(provider, (error: any, result: any) => {
+    this._signIn(provider, (error: Error, result: any) => {
       if (callback) { callback(error, result); }
     });
   }
 
   public signInGoogle(callback?: any): void {
     const provider = new firebase.auth.GoogleAuthProvider();
-    this._signIn(provider, (error: any, result: any) => {
+    this._signIn(provider, (error: Error, result: any) => {
       if (callback) { callback(error, result); }
     });
   }
 
   public signInTwitter(callback?: any): void {
     const provider = new firebase.auth.TwitterAuthProvider();
-    this._signIn(provider, (error: any, result: any) => {
+    this._signIn(provider, (error: Error, result: any) => {
       if (callback) { callback(error, result); }
     });
   }
@@ -47,7 +47,7 @@ export class UserService {
     this._fbAuth.auth.signOut()
       .then((result: any) => {
         callback(null, result);
-      }).catch((error: any) => {
+      }).catch((error: Error) => {
         callback(error, null);
       });
   }

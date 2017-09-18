@@ -1,11 +1,13 @@
+<md-toolbar color="primary">
+  <span>Games</span>
+</md-toolbar>
 
-
-<md-list class="container">
+<md-list>
   <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutWrap>
     <ng-template ngFor let-game [ngForOf]="games | async">
       <md-list-item fxHide.gt-xs="true" [routerLink]="['/', 'game', game.$key]">
         <img md-list-icon [src]="game.createdBy.photoURL" [alt]="game.createdBy.displayName">
-        <p md-line>Created On: {{game.createdOn | date}}</p>
+        <p md-line>Play with {{game.createdBy.displayName}}</p>
       </md-list-item>
       <md-divider [fxHide.gt-xs]="true"></md-divider>
       <div fxHide.lt-sm="true" fxFlex.gt-xs="50" fxFlex.gt-sm="33" fxFlex.gt-md="25" class="desktop-card">
@@ -25,6 +27,5 @@
     </ng-template>
   </div>
 </md-list>
-
 
 <button id="create-game" md-fab (click)="create()" [disabled]="creating"><md-icon>add</md-icon></button>

@@ -3,3 +3,9 @@
   bottom: 32px;
   right: 32px;
 }
+
+@media (max-width: 600px) {
+  md-list {
+    margin-top: -16px;
+  }
+}

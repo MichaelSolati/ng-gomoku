@@ -5,18 +5,18 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { UserService } from '../services';
+import { GamesService } from '../services';
 
 @Injectable()
-export class NoUserGuard implements CanActivate {
-  constructor(private _router: Router, private _us: UserService) { }
+export class GameGuard implements CanActivate {
+  constructor(private _gs: GamesService, private _router: Router) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this._us.user
-      .map((user: any) => {
-        if (user) {
+    return this._gs.findGame(next.params.id)
+      .map((game: any) => {
+        if (game['$value'] === null) {
           this._router.navigate(['/', 'home']);
           return false;
         }

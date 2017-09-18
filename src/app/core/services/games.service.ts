@@ -3,6 +3,8 @@ import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import 'rxjs/add/operator/first';
 
+import { board19 } from './boards';
+
 import { UserService } from './user.service';
 
 @Injectable()
@@ -18,18 +20,74 @@ export class GamesService {
 
   public create(callback?: any): void {
     this._us.user
-    .first()
-    .subscribe((user: any) => {
-      this._fbDB.list('/games')
-      .push({
-        createdOn: Date().toString(),
-        createdBy: user.providerData[0]
-      })
-      .then((success: any) => {
-        if (callback) { callback(null, success); }
-      }, (error: Error) => {
-        if (callback) { callback(error, null); }
+      .first()
+      .subscribe((user: any) => {
+        this._fbDB.list('/games')
+          .push({
+            createdOn: Date.now(),
+            createdBy: {
+              displayName: user.displayName,
+              photoURL: user.photoURL,
+              uid: user.uid
+            },
+            board: board19
+          })
+          .then((success: any) => {
+            if (callback) { callback(null, success); }
+          }, (error: Error) => {
+            if (callback) { callback(error, null); }
+          });
       });
+  }
+
+  public findGame(id: string): Observable<any> {
+    return this._fbDB.object('/games/' + id);
+  }
+
+  public latestMove(id: string): Observable<any> {
+    return this._fbDB.list('/moves', {
+      query: {
+        orderByChild: 'gameId',
+        equalTo: id
+      }
     });
+  }
+
+  public move(game: any, row: number, col: number, callback?: any): void {
+    this._us.user
+      .first()
+      .subscribe((user: any) => {
+        try {
+          this._validateUser(game, user);
+          this._validateBox(game.board, row, col);
+          game.board[row][col] = user.uid;
+          this._fbDB.object('/games/' + game['$key'])
+            .update({
+              playedOn: Date.now(),
+              playedBy: {
+                displayName: user.displayName,
+                photoURL: user.photoURL,
+                uid: user.uid
+              },
+              board: game.board
+            });
+        } catch (error) {
+          if (callback) { callback(error); }
+        }
+      });
+  }
+
+  private _validateUser(game: any, user: any): boolean {
+    if (game.playedBy.uid === user.uid) {
+      throw new Error('It is your oponents turn');
+    }
+    return true;
+  }
+
+  private _validateBox(board: any, row: number, col: number): boolean {
+    if (board[row][col] !== 0) {
+      throw new Error('Someone has played in this box already');
+    }
+    return true;
   }
 }

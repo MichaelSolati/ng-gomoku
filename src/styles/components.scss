@@ -1,3 +1,10 @@
+body {
+  margin-top: calc(64px + 16px);
+  @media (max-width: 600px) {
+    margin-top: calc(56px + 16px);
+  }
+}
+
 md-list {
   &.mat-list,
   &.mat-nav-list,
@@ -10,6 +17,7 @@ md-list {
 }
 
 md-toolbar.mat-toolbar {
-  margin-bottom: 16px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
 }
-

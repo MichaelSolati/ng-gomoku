@@ -1,1 +1,18 @@
-game
+<md-toolbar color="primary">
+  <span>Game</span>
+</md-toolbar>
+
+<section id="board">
+  <div *ngFor="let boardRow of (game | async)?.board; let row = index;" [id]="'row-'+row" fxLayout="row" fxLayoutWrap>
+    <div *ngFor="let box of boardRow; let col = index;" fxFlex (click)="move(row, col)">
+      <img class="box" [src]="boxImg(box, row, col, (game | async)?.createdBy.uid)" [alt]="'row '+row+' col '+col">
+    </div>
+  </div>
+</section>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br> {{game | async | json}}

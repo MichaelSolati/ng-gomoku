@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { UserGuard, NoUserGuard } from './core/guards';
+import { UserGuard, NoUserGuard, GameGuard } from './core/guards';
 
 const routes: Routes = [
   {
@@ -22,7 +22,7 @@ const routes: Routes = [
   {
     path: 'game',
     loadChildren: 'app/game/game.module#GameModule',
-    canActivateChild: [UserGuard]
+    canActivateChild: [UserGuard, GameGuard]
   },
   {
     path: '**',

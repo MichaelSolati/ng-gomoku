@@ -19,7 +19,7 @@ export class SignInComponent implements OnInit {
   public signIn(account: string): void {
     switch (account) {
       case 'facebook':
-        this._us.signInFacebook((error: any, success: any) => {
+        this._us.signInFacebook((error: Error, success: any) => {
           if (error) {
             this._snackBar.open(error.message, null, { duration: 3000 });
           } else {
@@ -29,7 +29,7 @@ export class SignInComponent implements OnInit {
         });
         break;
       case 'twitter':
-        this._us.signInTwitter((error: any, success: any) => {
+        this._us.signInTwitter((error: Error, success: any) => {
           if (error) {
             this._snackBar.open(error.message, null, { duration: 3000 });
           } else {
@@ -39,7 +39,7 @@ export class SignInComponent implements OnInit {
         });
         break;
       default:
-        this._us.signInGoogle((error: any, success: any) => {
+        this._us.signInGoogle((error: Error, success: any) => {
           if (error) {
             this._snackBar.open(error.message, null, { duration: 3000 });
           } else {
