@@ -20,9 +20,14 @@
       "prefix": "go",
       "serviceWorker": true,
       "styles": [
+        "../node_modules/normalize.css/normalize.css",
+        "styles/classes.scss",
+        "styles/components.scss",
         "styles.scss"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/hammerjs/hammer.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

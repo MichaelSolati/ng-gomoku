@@ -1,0 +1,15 @@
+md-list {
+  &.mat-list,
+  &.mat-nav-list,
+  &.mat-selection-list {
+    padding: 0px;
+  }
+  md-list-item {
+    background-color: #FFFFFF;
+  }
+}
+
+md-toolbar.mat-toolbar {
+  margin-bottom: 16px;
+}
+
