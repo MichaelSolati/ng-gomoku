@@ -1,0 +1,22 @@
+<md-toolbar color="primary">
+  <span>Gomoku</span>
+</md-toolbar>
+
+<section fxLayout fxLayoutAlign="center center">
+  <md-card fxFlex="80%" fxFlex.md="60%" fxFlex.lg="33%">
+    <md-card-header>
+      <md-card-title>Sign In</md-card-title>
+    </md-card-header>
+    <md-card-content fxLayout fxLayoutAlign="center center">
+      <div fxFlex="33%" (click)="signIn('facebook')">
+        Sign In With Facebook
+      </div>
+      <div fxFlex="33%" (click)="signIn('google')">
+        Sign In With Google
+      </div>
+      <div fxFlex="33%" (click)="signIn('twitter')">
+        Sign In With Twitter
+      </div>
+    </md-card-content>
+  </md-card>
+</section>
