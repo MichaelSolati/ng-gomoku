@@ -16,13 +16,19 @@ export class GamesService {
     return this._games;
   }
 
-  public create(): void {
+  public create(callback?: any): void {
     this._us.user
     .first()
     .subscribe((user: any) => {
-      this._fbDB.list('/games').push({
+      this._fbDB.list('/games')
+      .push({
         createdOn: Date().toString(),
         createdBy: user.providerData[0]
+      })
+      .then((success: any) => {
+        if (callback) { callback(null, success); }
+      }, (error: Error) => {
+        if (callback) { callback(error, null); }
       });
     });
   }

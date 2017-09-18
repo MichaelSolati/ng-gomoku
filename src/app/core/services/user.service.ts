@@ -13,10 +13,12 @@ export class UserService {
   }
 
   private _signIn(provider: any, callback?: any): void {
-    this._fbAuth.auth.signInWithPopup(provider).then((result: any) => {
-      if (callback) { callback(null, result); }
-    }).catch((error: any) => {
-      if (callback) { callback(error, null); }
+    this._fbAuth.auth.signInWithRedirect(provider).then(() => {
+      this._fbAuth.auth.getRedirectResult().then((result: any) => {
+        if (callback) { callback(null, result); }
+      }).catch((error: any) => {
+        if (callback) { callback(error, null); }
+      });
     });
   }
 
