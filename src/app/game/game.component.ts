@@ -33,7 +33,11 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   public boxImg(box: any, row: number, col: number, createdBy: string) {
-    if (row === 0 && col === 0) {
+    if (createdBy === box) {
+      return 'assets/black.png';
+    } else if (typeof box === 'string') {
+      return 'assets/white.png';
+    } else if (row === 0 && col === 0) {
       return 'assets/nw-corner.png';
     } else if (row === 0 && col === 18) {
       return 'assets/ne-corner.png';
@@ -53,10 +57,6 @@ export class GameComponent implements OnInit, OnDestroy {
       (row === 9 && col === 3) || (row === 9 && col === 9) || (row === 9 && col === 15) ||
       (row === 15 && col === 3) || (row === 15 && col === 9) || (row === 15 && col === 15)) {
       return 'assets/star.png';
-    } else if (createdBy === box) {
-      return 'assets/black.png';
-    } else if (typeof box === 'string') {
-      return 'assets/white.png';
     }
     return 'assets/cross.png';
   }

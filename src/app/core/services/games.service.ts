@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import 'rxjs/add/operator/first';
+import 'rxjs/add/operator/map';
 
 import { board19 } from './boards';
 
@@ -11,7 +12,16 @@ import { UserService } from './user.service';
 export class GamesService {
   private _games: Observable<any>;
   constructor(private _fbDB: AngularFireDatabase, private _us: UserService) {
-    this._games = this._fbDB.list('/games');
+    this._us.user.subscribe((user: any) => {
+      this._games = this._fbDB.list('/games', {
+        query: {
+          orderByChild: 'joinedBy',
+          endAt: ''
+        }
+      }).map((games: any[]) => {
+        return games.filter((game: any) => game.createdBy.uid !== user.uid);
+      });
+    });
   }
 
   get games(): Observable<any[]> {
@@ -36,6 +46,27 @@ export class GamesService {
             if (callback) { callback(null, success); }
           }, (error: Error) => {
             if (callback) { callback(error, null); }
+          });
+      });
+  }
+
+  public join(gameId: string, callback?: any): void {
+    this._us.user
+      .first()
+      .subscribe((user: any) => {
+        this._fbDB.object('/games/' + gameId)
+          .update({
+            joinedOn: Date.now(),
+            joinedBy: {
+              displayName: user.displayName,
+              photoURL: user.photoURL,
+              uid: user.uid
+            }
+          })
+          .then((success: any) => {
+            if (callback) { callback(null); }
+          }, (error: Error) => {
+            if (callback) { callback(error); }
           });
       });
   }
@@ -78,7 +109,7 @@ export class GamesService {
   }
 
   private _validateUser(game: any, user: any): boolean {
-    if (game.playedBy.uid === user.uid) {
+    if (game.playedBy && game.playedBy.uid === user.uid) {
       throw new Error('It is your oponents turn');
     }
     return true;

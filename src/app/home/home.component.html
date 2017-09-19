@@ -5,7 +5,7 @@
 <md-list>
   <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutWrap>
     <ng-template ngFor let-game [ngForOf]="games | async">
-      <md-list-item fxHide.gt-xs="true" [routerLink]="['/', 'game', game.$key]">
+      <md-list-item fxHide.gt-xs="true" (click)="join(game.$key)">
         <img md-list-icon [src]="game.createdBy.photoURL" [alt]="game.createdBy.displayName">
         <p md-line>Play with {{game.createdBy.displayName}}</p>
       </md-list-item>
@@ -20,7 +20,7 @@
           <md-card-content>
           </md-card-content>
           <md-card-actions>
-            <a md-button [routerLink]="['/', 'game', game.$key]">Join Game</a>
+            <button md-button (click)="join(game.$key)">Join Game</button>
           </md-card-actions>
         </md-card>
       </div>
@@ -28,4 +28,4 @@
   </div>
 </md-list>
 
-<button id="create-game" md-fab (click)="create()" [disabled]="creating"><md-icon>add</md-icon></button>
+<button id="create-game" md-fab (click)="create()" [disabled]="processing"><md-icon>add</md-icon></button>
