@@ -4,7 +4,7 @@ import { MdSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { GamesService } from '../core/services';
+import { GamesService, NavbarService } from '../core/services';
 
 @Component({
   moduleId: module.id,
@@ -16,9 +16,10 @@ export class GameComponent implements OnInit, OnDestroy {
   private _game: Observable<any>;
   private _idSubscription: Subscription;
 
-  constructor(private _gs: GamesService, private _route: ActivatedRoute, private _snackBar: MdSnackBar) { }
+  constructor(private _gs: GamesService, private _ns: NavbarService, private _route: ActivatedRoute, private _snackBar: MdSnackBar) { }
 
   ngOnInit() {
+    this._ns.setTitle('Game');
     this._idSubscription = this._route.params.subscribe((params: any) => {
       this._game = this._gs.findGame(params.id);
     });

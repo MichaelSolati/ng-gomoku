@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { NavbarService } from '../core/services';
+
 @Component({
   moduleId: module.id,
   selector: 'go-welcome',
@@ -7,10 +9,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./welcome.component.scss']
 })
 export class WelcomeComponent implements OnInit {
-
-  constructor() { }
+  constructor(private _ns: NavbarService) { }
 
   ngOnInit() {
+    this._ns.setTitle('Gomoku');
   }
-
 }

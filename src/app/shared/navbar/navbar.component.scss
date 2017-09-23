@@ -1,0 +1,20 @@
+.navbar-spacer {
+  flex: 1 1 auto;
+}
+
+a.top-nav {
+  color: white;
+  font-size: 15px;
+}
+
+button.show-small.mat-button {
+  padding: 0px;
+  width: 36px;
+  min-width: 36px;
+  margin-right: 16px;
+}
+
+.navbar-photo {
+  height: 40px;
+  max-height: 100%;
+}

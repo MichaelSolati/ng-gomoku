@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 
-import { GamesService } from '../core/services';
+import { GamesService, NavbarService } from '../core/services';
 
 @Component({
   moduleId: module.id,
@@ -14,9 +14,10 @@ import { GamesService } from '../core/services';
 export class HomeComponent implements OnInit {
   private _processing: boolean;
 
-  constructor(private _gs: GamesService, private _router: Router, private _snackBar: MdSnackBar) { }
+  constructor(private _gs: GamesService, private _ns: NavbarService, private _router: Router, private _snackBar: MdSnackBar) { }
 
   ngOnInit() {
+    this._ns.setTitle('Home');
   }
 
   get processing(): boolean {

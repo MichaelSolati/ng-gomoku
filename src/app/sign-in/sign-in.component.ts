@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 
-import { UserService } from '../core/services';
+import { NavbarService, UserService } from '../core/services';
 
 @Component({
   moduleId: module.id,
@@ -11,9 +11,10 @@ import { UserService } from '../core/services';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
-  constructor(private _router: Router, private _snackBar: MdSnackBar, private _us: UserService) { }
+  constructor(private _ns: NavbarService, private _router: Router, private _snackBar: MdSnackBar, private _us: UserService) { }
 
   ngOnInit() {
+    this._ns.setTitle('Sign In');
   }
 
   public signIn(account: string): void {

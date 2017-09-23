@@ -1,0 +1,25 @@
+<md-toolbar color="primary">
+  <span>{{title | async}}</span>
+  <span class="navbar-spacer"></span>
+  <a md-button fxHide.xs href="https://www.meetup.com/gomoku" target="_blank" rel="noopener">
+    <img src="./assets/icons/white/meetup.svg" alt="Meetup Logo" class="align-middle navbar-photo">
+  </a>
+  <a md-button fxHide.xs href="https://github.com/MichaelSolati/ng-gomoku" target="_blank" rel="noopener">
+    <img src="./assets/icons/white/github.svg" alt="GitHub Logo" class="align-middle navbar-photo">
+  </a>
+  <button md-button *ngIf="(user | async)" class="hide-small top-nav" [mdMenuTriggerFor]="menu">
+    <img [src]="(user | async)?.photoURL" [alt]="(user | async)?.displayName" class="align-middle navbar-photo profile-pic">
+  </button>
+  <md-menu #menu="mdMenu">
+    <!-- <button md-menu-item [routerLink]="['/', 'account']">
+      <md-icon>account_circle</md-icon>
+      <span>{{(user | async)?.displayName}}</span>
+    </button> -->
+    <button md-menu-item (click)="signOut()">
+      <md-icon>exit_to_app</md-icon>
+      <span>Sign Out</span>
+    </button>
+  </md-menu>
+  <a md-button *ngIf="!(user | async)" class="top-nav" [routerLink]="['/', 'sign-in']">Sign In</a>
+</md-toolbar>
+

@@ -5,6 +5,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { NavbarComponent } from './navbar/navbar.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -13,11 +15,14 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     RouterModule
   ],
-  declarations: [],
+  declarations: [
+    NavbarComponent
+  ],
   exports: [
     MaterialModule,
     FlexLayoutModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NavbarComponent
   ]
 })
 export class SharedModule { }
