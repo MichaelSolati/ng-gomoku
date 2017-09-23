@@ -13,9 +13,6 @@
             <md-card-title>{{game.createdBy.displayName}}</md-card-title>
             <md-card-subtitle>Created On: {{game.createdOn | date}}</md-card-subtitle>
           </md-card-header>
-          <md-card-content>
-            {{checker(game.createdOn)}}
-          </md-card-content>
           <md-card-actions>
             <button md-button (click)="join(game.$key)">Join Game</button>
           </md-card-actions>

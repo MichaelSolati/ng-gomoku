@@ -53,8 +53,4 @@ export class HomeComponent implements OnInit {
       });
     }
   }
-
-  public checker(date: number) {
-    return !(Number(date) < (Date.now() - 3600000));
-  }
 }
