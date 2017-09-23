@@ -1,1 +1,27 @@
-<a md-button [routerLink]="['/', 'sign-in']">Sign In</a>
+<section fxLayout fxLayoutAlign="center center">
+  <md-card fxFlex="80%" fxFlex.md="60%" fxFlex.lg="33%">
+    <md-card-header>
+      <md-card-title (click)="game()">
+        <h2 class="no-space">It's Time To Play The Game...</h2>
+      </md-card-title>
+    </md-card-header>
+    <img md-card-image src="assets/game-play.jpg" alt="Horse and bird playing Gomoku">
+    <md-card-content>
+      <p>
+        Five in a row (or Gomoku) is an abstract strategy board game.
+      </p>
+      <p>
+        Also called Gobang or Five in a Row, it is traditionally played with Go pieces (black and white stones) on a go board with
+        19x19 (15x15) intersections; However, because pieces are not moved or removed from the board, gomoku may also be
+        played as a paper and pencil game. This game is known in several countries under different names.
+      </p>
+      <p>
+        We will have regular meetings, where we'll learn more about the game, it's tactics, and of course play it!
+      </p>
+    </md-card-content>
+    <md-card-actions>
+        <a md-button [routerLink]="['/', 'sign-in']">PLAY NOW</a>
+        <a md-button href="https://www.meetup.com/gomoku" target="_blank">JOIN MEETUP</a>
+      </md-card-actions>
+  </md-card>
+</section>
