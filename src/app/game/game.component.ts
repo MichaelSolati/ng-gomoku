@@ -34,9 +34,9 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   public boxImg(box: any, row: number, col: number, createdBy: string) {
-    if (createdBy === box) {
+    if (1 === box) {
       return 'assets/black.png';
-    } else if (typeof box === 'string') {
+    } else if (2 === box) {
       return 'assets/white.png';
     } else if (row === 0 && col === 0) {
       return 'assets/nw-corner.png';

@@ -38,7 +38,8 @@ export class GamesService {
             createdBy: {
               displayName: user.displayName,
               photoURL: user.photoURL,
-              uid: user.uid
+              uid: user.uid,
+              player: 1
             },
             board: board19
           })
@@ -60,7 +61,8 @@ export class GamesService {
             joinedBy: {
               displayName: user.displayName,
               photoURL: user.photoURL,
-              uid: user.uid
+              uid: user.uid,
+              player: 2
             }
           })
           .then((success: any) => {
@@ -73,6 +75,11 @@ export class GamesService {
 
   public findGame(id: string): Observable<any> {
     return this._fbDB.object('/games/' + id);
+  }
+
+  public checkPlayer(game: any, user: any): number {
+    // (user.uid === game.createdBy.uid) ? console.log('1') : console.log('2');
+    return (user.uid === game.createdBy.uid) ? 1 : 2;
   }
 
   public latestMove(id: string): Observable<any> {
@@ -89,9 +96,11 @@ export class GamesService {
       .first()
       .subscribe((user: any) => {
         try {
-          this._validateUser(game, user);
+          console.log(game);
+          // this._validateUser(game, user);
           this._validateBox(game.board, row, col);
-          game.board[row][col] = user.uid;
+          game.board[row][col] = this.checkPlayer(game, user);
+          this.checkBoardState(game.board);
           this._fbDB.object('/games/' + game['$key'])
             .update({
               playedOn: Date.now(),
@@ -106,6 +115,33 @@ export class GamesService {
           if (callback) { callback(error); }
         }
       });
+  }
+
+  public checkBoardState(board: any): number {
+    board = board.join('-').replace(/,/g, '');
+    console.log(board);
+    if (board.match(/1{5}/)) {
+      console.log('Horizontal win Player 1!');
+      return 1;
+    }
+    if (board.match(/2{5}/)) {
+      console.log('Horizontal win Player 2!');
+      return 2;
+    }
+    if (board.match(/(1...................){5}|(...................1){5}/)) {
+      console.log('Vertical win Player 1!');
+      return 1;
+    }
+    if (board.match(/(2...................){5}|(...................2){5}/)) {
+      console.log('Vertical win Player 2!');
+      return 2;
+    }
+    // Garbage code.
+    // if (board.match(/(1.{19}}){5}|(.{19}1){5}/)) {
+    //   console.log('Diagonal win Player 1!');
+    //   return 1;
+    // }
+    if (board.match(/0/)) { return -1; }
   }
 
   private _validateUser(game: any, user: any): boolean {
