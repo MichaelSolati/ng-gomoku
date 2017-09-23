@@ -41,7 +41,6 @@ export class HomeComponent implements OnInit {
   }
 
   public join(gameId: string): void {
-    console.log(gameId)
     if (!this._processing) {
       this._processing = true;
       this._gs.join(gameId, (error: Error) => {
@@ -53,5 +52,9 @@ export class HomeComponent implements OnInit {
         }
       });
     }
+  }
+
+  public checker(date: number) {
+    return !(Number(date) < (Date.now() - 3600000));
   }
 }

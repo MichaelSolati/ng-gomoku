@@ -15,11 +15,11 @@ export class GamesService {
     this._us.user.subscribe((user: any) => {
       this._games = this._fbDB.list('/games', {
         query: {
-          orderByChild: 'joinedBy',
-          endAt: ''
+          orderByChild: 'createdOn',
+          startAt: (Date.now() - 3600000)
         }
       }).map((games: any[]) => {
-        return games.filter((game: any) => game.createdBy.uid !== user.uid);
+        return games.filter((game: any) => (game.createdBy.uid !== user.uid && !game.joinedBy));
       });
     });
   }
