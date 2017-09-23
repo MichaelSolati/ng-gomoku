@@ -4,14 +4,17 @@
       <md-card-title>Sign In</md-card-title>
     </md-card-header>
     <md-card-content fxLayout fxLayoutAlign="center center">
-      <div fxFlex="33%" (click)="signIn('facebook')">
-        Sign In With Facebook
+      <div fxFlex="33%" (click)="signIn('facebook')" class="text-center padding">
+        <img src="assets/icons/facebook.svg" class="full-size" alt="Facebook Login">
+        <h6>Sign In With Facebook</h6>
       </div>
-      <div fxFlex="33%" (click)="signIn('google')">
-        Sign In With Google
+      <div fxFlex="33%" (click)="signIn('google')" class="text-center padding">
+        <img src="assets/icons/google.svg" class="full-size" alt="Google Login">
+        <h6>Sign In With Google</h6>
       </div>
-      <div fxFlex="33%" (click)="signIn('twitter')">
-        Sign In With Twitter
+      <div fxFlex="33%" (click)="signIn('twitter')" class="text-center padding">
+        <img src="assets/icons/twitter.svg" class="full-size" alt="Twitter Login">
+        <h6>Sign In With Twitter</h6>
       </div>
     </md-card-content>
   </md-card>
