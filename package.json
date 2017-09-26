@@ -12,7 +12,7 @@
     "e2e": "ng e2e",
     "hmr": "ng serve --hmr -e=hmr",
     "postinstall": "cp ./node_modules/hammerjs/hammer.min.js.map ./src",
-    "ngu-app-shell": "./node_modules/.bin/ngu-app-shell --module src/app/app.module.ts --out dist/index.html",
+    "ngu-app-shell": "./node_modules/.bin/ngu-app-shell --module src/app/app.module.ts --url / --insert-module src/app/loading/loading.module.ts --out dist/index.html",
     "ngu-sw-manifest": "./node_modules/.bin/ngu-sw-manifest --module src/app/app.module.ts --out dist/ngsw-manifest.json",
     "release:major": "changelog -M && git add . && git commit -m 'chore(release): major version release' && npm version major && git push origin && git push origin --tags",
     "release:minor": "changelog -m && git add . && git commit -m 'chore(release): minor version release' && npm version minor && git push origin && git push origin --tags",
